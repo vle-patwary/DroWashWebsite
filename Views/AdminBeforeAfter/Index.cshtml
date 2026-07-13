@@ -1,0 +1,88 @@
+﻿@using DroWashWebsite.Models
+@{
+    ViewData["Title"] = "Before / After Images";
+    Layout = "_AdminLayout";
+    var before = ViewBag.BeforeImage as BeforeAfterImage;
+    var after = ViewBag.AfterImage as BeforeAfterImage;
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Before / After Images</h1>
+        <p>Powers the drag-to-compare slider in the "Cheaper and faster" section of your homepage.</p>
+    </div>
+</div>
+
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;" class="admin-two-col">
+    <div class="admin-panel">
+        <h3 style="font-family:var(--font-display); font-size:16px; margin-bottom:16px; color:var(--navy-deep);">Before Image</h3>
+
+        <div class="image-preview-box">
+            @if (before != null)
+            {
+                <img src="@Url.Content(before.ImageUrl)" alt="Before image">
+            }
+            else
+            {
+                <div class="empty">No image uploaded yet</div>
+            }
+        </div>
+
+        <form asp-action="Upload" method="post" enctype="multipart/form-data" class="admin-form">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="type" value="Before" />
+            <div class="form-row">
+                <label for="beforeFile">@(before != null ? "Replace image" : "Upload image") (.jpg, .jpeg, .png, .webp — max 5 MB)</label>
+                <input type="file" id="beforeFile" name="imageFile" accept=".jpg,.jpeg,.png,.webp" required />
+            </div>
+            <div class="admin-form-actions">
+                <button type="submit" class="btn btn-primary btn-sm">@(before != null ? "Replace" : "Upload")</button>
+            </div>
+        </form>
+
+        @if (before != null)
+        {
+            <form asp-action="Remove" method="post" onsubmit="return confirm('Remove the Before image? The comparison slider will show a placeholder until a new one is uploaded.');" style="margin-top:10px;">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="type" value="Before" />
+                <button type="submit" class="btn btn-danger btn-sm">Remove Image</button>
+            </form>
+        }
+    </div>
+
+    <div class="admin-panel">
+        <h3 style="font-family:var(--font-display); font-size:16px; margin-bottom:16px; color:var(--navy-deep);">After Image</h3>
+
+        <div class="image-preview-box">
+            @if (after != null)
+            {
+                <img src="@Url.Content(after.ImageUrl)" alt="After image">
+            }
+            else
+            {
+                <div class="empty">No image uploaded yet</div>
+            }
+        </div>
+
+        <form asp-action="Upload" method="post" enctype="multipart/form-data" class="admin-form">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="type" value="After" />
+            <div class="form-row">
+                <label for="afterFile">@(after != null ? "Replace image" : "Upload image") (.jpg, .jpeg, .png, .webp — max 5 MB)</label>
+                <input type="file" id="afterFile" name="imageFile" accept=".jpg,.jpeg,.png,.webp" required />
+            </div>
+            <div class="admin-form-actions">
+                <button type="submit" class="btn btn-primary btn-sm">@(after != null ? "Replace" : "Upload")</button>
+            </div>
+        </form>
+
+        @if (after != null)
+        {
+            <form asp-action="Remove" method="post" onsubmit="return confirm('Remove the After image? The comparison slider will show a placeholder until a new one is uploaded.');" style="margin-top:10px;">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="type" value="After" />
+                <button type="submit" class="btn btn-danger btn-sm">Remove Image</button>
+            </form>
+        }
+    </div>
+</div>

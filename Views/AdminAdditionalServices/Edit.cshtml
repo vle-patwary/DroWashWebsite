@@ -1,0 +1,37 @@
+﻿@model DroWashWebsite.Models.AdditionalService
+@{
+    ViewData["Title"] = "Edit Additional Service";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Edit Additional Service</h1>
+        <p>Updating this will immediately replace the current content on your live site.</p>
+    </div>
+</div>
+
+<div class="admin-panel">
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="admin-form">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="admin-alert admin-alert-error" style="@(ViewData.ModelState.IsValid ? "display:none;" : "")"></div>
+
+        <div class="form-row">
+            <label asp-for="Name">Name</label>
+            <input asp-for="Name" />
+            <span asp-validation-for="Name" class="field-error"></span>
+        </div>
+
+        <div class="form-row">
+            <label asp-for="SortOrder">Sort order (lower numbers show first)</label>
+            <input asp-for="SortOrder" type="number" />
+            <span asp-validation-for="SortOrder" class="field-error"></span>
+        </div>
+
+        <div class="admin-form-actions">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a asp-action="Index" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+</div>

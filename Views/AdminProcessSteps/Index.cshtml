@@ -1,0 +1,51 @@
+﻿@model List<DroWashWebsite.Models.ProcessStep>
+@{
+    ViewData["Title"] = "Process Steps";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Process Steps</h1>
+        <p>These show in the "Client Onboarding" timeline on your homepage.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">+ Add Step</a>
+</div>
+
+<div class="admin-table-wrap">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Order</th>
+                <th>Number</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="5" style="text-align:center; color:#5b6577;">No process steps yet. Click "Add Step" to create your first one.</td></tr>
+            }
+            @foreach (var step in Model)
+            {
+                <tr>
+                    <td data-label="Order">@step.SortOrder</td>
+                    <td data-label="Number">@step.Number</td>
+                    <td data-label="Title"><strong>@step.Title</strong></td>
+                    <td data-label="Description">@(step.Description.Length > 80 ? step.Description.Substring(0, 80) + "…" : step.Description)</td>
+                    <td data-label="Actions">
+                        <div class="row-actions">
+                            <a asp-action="Edit" asp-route-id="@step.Id" class="btn btn-outline btn-sm">Edit</a>
+                            <form asp-action="Delete" asp-route-id="@step.Id" method="post" onsubmit="return confirm('Delete \'@step.Title\'? This cannot be undone.');" style="display:inline;">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

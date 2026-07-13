@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - DroWash Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true">
+</head>
+<body class="admin-body">
+
+    <div class="admin-topbar">
+        <button class="admin-menu-toggle" id="adminMenuToggle" aria-label="Toggle menu" aria-expanded="false">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+        </button>
+        <div class="brand">
+            <img src="~/images/logo.jpg" alt="DroWash logo">
+            <span>DroWash Admin</span>
+        </div>
+        <div style="width:38px;"></div>
+    </div>
+
+    <div class="admin-sidebar-overlay" id="adminOverlay"></div>
+
+    <div class="admin-shell">
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="admin-sidebar-brand">
+                <img src="~/images/logo.jpg" alt="DroWash logo">
+                <div>
+                    <div class="name">DroWash</div>
+                    <div class="tag">Admin Panel</div>
+                </div>
+            </div>
+
+            <nav class="admin-nav">
+                <a asp-controller="Admin" asp-action="Index" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Admin" ? "active" : "")">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1.5" /><rect x="14" y="3" width="7" height="5" rx="1.5" /><rect x="14" y="12" width="7" height="9" rx="1.5" /><rect x="3" y="16" width="7" height="5" rx="1.5" /></svg>
+                    Dashboard
+                </a>
+
+                <div class="admin-nav-group-label">Homepage Content</div>
+                <a asp-controller="AdminServices" asp-action="Index">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="1.5" /><path d="M3 9h18M3 15h18M9 3v18M15 3v18" /></svg>
+                    Services
+                </a>
+                <a asp-controller="AdminAdditionalServices" asp-action="Index">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.6 12.1L12.4 3.9a2 2 0 00-1.4-.6H4a1 1 0 00-1 1v7a2 2 0 00.6 1.4l8.2 8.2a2 2 0 002.8 0l6-6a2 2 0 000-2.8z" /><circle cx="7.5" cy="7.5" r="1.2" /></svg>
+                    Additional Services
+                </a>
+                <a asp-controller="AdminBenefits" asp-action="Index">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6L9 17l-5-5" /></svg>
+                    Benefits
+                </a>
+                <a asp-controller="AdminProcessSteps" asp-action="Index">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="12" r="2.5" /><circle cx="18" cy="6" r="2.5" /><circle cx="18" cy="18" r="2.5" /><path d="M8.3 11l7.4-3.5M8.3 13l7.4 3.5" /></svg>
+                    Process Steps
+                </a>
+                <a asp-controller="AdminWhyCards" asp-action="Index">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 4v5c0 5-3.4 8.4-7 9-3.6-.6-7-4-7-9V7l7-4z" /></svg>
+                    Why Cards
+                </a>
+                <a asp-controller="AdminFeatureLists" asp-action="Index">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3v18M3 9h6M3 15h6M15 3v18M15 9h6M15 15h6" /></svg>
+                    Feature Lists
+                </a>
+                <a asp-controller="AdminHeroSlides" asp-action="Index">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2" /><circle cx="8.5" cy="9.5" r="1.5" /><path d="M21 15l-5-5-4 4-3-3-5 5" /></svg>
+                    Hero Slideshow
+                </a>
+                <a asp-controller="AdminBeforeAfter" asp-action="Index">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="1.5" /><path d="M12 3v18" /></svg>
+                    Before / After
+                </a>
+
+                <div class="admin-nav-group-label">Leads</div>
+                <a asp-controller="AdminQuotes" asp-action="Index">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v12H7l-3 3V4z" /></svg>
+                    Quote Requests
+                </a>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <div class="user">
+                    <div class="user-avatar">@(User.Identity?.Name?.Substring(0, 1).ToUpper() ?? "A")</div>
+                    <div>
+                        <div class="user-name">@User.Identity?.Name</div>
+                        <div class="user-role">Administrator</div>
+                    </div>
+                </div>
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="admin-logout-btn">Log out</button>
+                </form>
+            </div>
+        </aside>
+
+        <div class="admin-main">
+            <div class="admin-content">
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="admin-alert admin-alert-success">@TempData["SuccessMessage"]</div>
+                }
+                @if (TempData["ErrorMessage"] != null)
+                {
+                    <div class="admin-alert admin-alert-error">@TempData["ErrorMessage"]</div>
+                }
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+          var sidebar = document.getElementById('adminSidebar');
+          var overlay = document.getElementById('adminOverlay');
+          var toggle = document.getElementById('adminMenuToggle');
+
+          function closeMenu() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+          }
+          function openMenu() {
+            sidebar.classList.add('open');
+            overlay.classList.add('open');
+            toggle.setAttribute('aria-expanded', 'true');
+          }
+
+          toggle.addEventListener('click', function () {
+            sidebar.classList.contains('open') ? closeMenu() : openMenu();
+          });
+          overlay.addEventListener('click', closeMenu);
+        })();
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,36 @@
+﻿@model DroWashWebsite.Models.Benefit
+@{
+    ViewData["Title"] = "Add Benefit";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Add Benefit</h1>
+        <p>This will appear as a new checklist item in the "Benefits" section.</p>
+    </div>
+</div>
+
+<div class="admin-panel">
+    <form asp-action="Create" method="post" class="admin-form">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="admin-alert admin-alert-error" style="@(ViewData.ModelState.IsValid ? "display:none;" : "")"></div>
+
+        <div class="form-row">
+            <label asp-for="Text">Benefit text</label>
+            <input asp-for="Text" placeholder="No soaps or harsh chemicals" />
+            <span asp-validation-for="Text" class="field-error"></span>
+        </div>
+
+        <div class="form-row">
+            <label asp-for="SortOrder">Sort order (lower numbers show first)</label>
+            <input asp-for="SortOrder" type="number" placeholder="1" />
+            <span asp-validation-for="SortOrder" class="field-error"></span>
+        </div>
+
+        <div class="admin-form-actions">
+            <button type="submit" class="btn btn-primary">Save Benefit</button>
+            <a asp-action="Index" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+</div>

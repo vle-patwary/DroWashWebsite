@@ -1,0 +1,18 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<section style="padding:120px 0; text-align:center;">
+    <div class="wrap">
+        <h1 style="font-family:var(--font-display); font-size:36px; margin-bottom:16px;">Something went wrong.</h1>
+        <p style="color:#5b6577;">An unexpected error occurred while processing your request.</p>
+        @if (Model?.ShowRequestId == true)
+        {
+            <p style="color:#8b96a8; font-family:var(--font-mono); font-size:13px; margin-top:12px;">
+                Request ID: <code>@Model.RequestId</code>
+            </p>
+        }
+        <a href="~/" class="btn btn-primary" style="margin-top:24px;">Back to home</a>
+    </div>
+</section>

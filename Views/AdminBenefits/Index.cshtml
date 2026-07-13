@@ -1,0 +1,47 @@
+﻿@model List<DroWashWebsite.Models.Benefit>
+@{
+    ViewData["Title"] = "Benefits";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Benefits</h1>
+        <p>These show as checklist items in the "Benefits" grid on your homepage.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">+ Add Benefit</a>
+</div>
+
+<div class="admin-table-wrap">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Order</th>
+                <th>Text</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="3" style="text-align:center; color:#5b6577;">No benefits yet. Click "Add Benefit" to create your first one.</td></tr>
+            }
+            @foreach (var benefit in Model)
+            {
+                <tr>
+                    <td data-label="Order">@benefit.SortOrder</td>
+                    <td data-label="Text">@benefit.Text</td>
+                    <td data-label="Actions">
+                        <div class="row-actions">
+                            <a asp-action="Edit" asp-route-id="@benefit.Id" class="btn btn-outline btn-sm">Edit</a>
+                            <form asp-action="Delete" asp-route-id="@benefit.Id" method="post" onsubmit="return confirm('Delete this benefit? This cannot be undone.');" style="display:inline;">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

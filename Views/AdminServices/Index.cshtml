@@ -1,0 +1,51 @@
+﻿@model List<DroWashWebsite.Models.Service>
+@{
+    ViewData["Title"] = "Services";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Services</h1>
+        <p>These appear as cards in the "What We Fly" section on your homepage.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">+ Add Service</a>
+</div>
+
+<div class="admin-table-wrap">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Order</th>
+                <th>Index</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="5" style="text-align:center; color:#5b6577;">No services yet. Click "Add Service" to create your first one.</td></tr>
+            }
+            @foreach (var service in Model)
+            {
+                <tr>
+                    <td data-label="Order">@service.SortOrder</td>
+                    <td data-label="Index">@service.Index</td>
+                    <td data-label="Title"><strong>@service.Title</strong></td>
+                    <td data-label="Description">@(service.Description.Length > 80 ? service.Description.Substring(0, 80) + "…" : service.Description)</td>
+                    <td data-label="Actions">
+                        <div class="row-actions">
+                            <a asp-action="Edit" asp-route-id="@service.Id" class="btn btn-outline btn-sm">Edit</a>
+                            <form asp-action="Delete" asp-route-id="@service.Id" method="post" onsubmit="return confirm('Delete \'@service.Title\'? This cannot be undone.');" style="display:inline;">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

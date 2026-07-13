@@ -1,0 +1,408 @@
+﻿@model DroWashWebsite.Models.LoginViewModel
+@{
+    ViewData["Title"] = "Admin Login";
+    Layout = "_AuthLayout";
+}
+
+<section class="login-screen">
+  <div class="login-grid">
+
+    <!-- Brand panel -->
+    <div class="login-brand">
+      <div class="brand-inner">
+        <div class="eyebrow"><span class="dot"></span> Restricted Access</div>
+        <h1>Flight deck for the <span>DroWash</span> team.</h1>
+        <p class="lead">Manage services, quotes and site content from one place. This area is for authorized DroWash staff only.</p>
+
+        <div class="brand-stats">
+          <div><div class="num">0</div><div class="lbl">Rope Access Crew</div></div>
+          <div><div class="num">100%</div><div class="lbl">Deionized Water</div></div>
+          <div><div class="num">3x</div><div class="lbl">Faster Turnaround</div></div>
+        </div>
+      </div>
+
+      <!-- Signature element: drone flight-path -->
+      <svg class="flight-path" viewBox="0 0 600 500" preserveAspectRatio="none" aria-hidden="true">
+        <path id="flightLine" d="M -20 420 C 120 380, 160 200, 300 210 S 480 340, 620 90"
+              fill="none" stroke="url(#pathGrad)" stroke-width="2" stroke-dasharray="6 10" />
+        <defs>
+          <linearGradient id="pathGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#3fd0ff" stop-opacity="0" />
+            <stop offset="15%" stop-color="#3fd0ff" stop-opacity="0.9" />
+            <stop offset="100%" stop-color="#3fd0ff" stop-opacity="0.15" />
+          </linearGradient>
+        </defs>
+        <circle class="drone-dot" r="5" fill="#3fd0ff">
+          <animateMotion dur="7s" repeatCount="indefinite" rotate="auto">
+            <mpath href="#flightLine"></mpath>
+          </animateMotion>
+        </circle>
+      </svg>
+    </div>
+
+    <!-- Login panel -->
+    <div class="login-panel">
+      <div class="login-card">
+        <div class="login-card-head">
+          <span class="kicker">Admin</span>
+          <h2>Log in</h2>
+          <p>Enter your credentials to continue.</p>
+        </div>
+
+        <form asp-controller="Account" asp-action="Login" method="post" novalidate>
+          @Html.AntiForgeryToken()
+          <div asp-validation-summary="ModelOnly" class="field-error general"></div>
+
+          <div class="form-row">
+            <label asp-for="Username">Username</label>
+            <input asp-for="Username" class="form-input" autocomplete="username" placeholder="your.username" />
+            <span asp-validation-for="Username" class="field-error"></span>
+          </div>
+
+          <div class="form-row">
+            <label asp-for="Password">Password</label>
+            <div class="password-field">
+              <input asp-for="Password" class="form-input" type="password" autocomplete="current-password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" id="passwordInput" />
+              <button type="button" class="toggle-pw" id="togglePw" aria-label="Show password">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" width="18" height="18">
+                  <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+            <span asp-validation-for="Password" class="field-error"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </form>
+
+        <a href="/" class="back-link">&larr; Back to site</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .login-screen {
+    min-height: 100vh;
+    background: #0a1628;
+    color: #eaf1fb;
+    display: flex;
+  }
+
+  .login-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  /* ---------- Brand panel ---------- */
+  .login-brand {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(160deg, #123258, #0a1628 70%);
+    display: flex;
+    align-items: center;
+    padding: 56px;
+  }
+
+  .brand-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 460px;
+  }
+
+  .login-brand .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    color: #8fb3d9;
+    margin-bottom: 22px;
+  }
+
+  .login-brand .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #3fd0ff;
+    box-shadow: 0 0 0 4px rgba(63, 208, 255, .18);
+  }
+
+  .login-brand h1 {
+    font-size: clamp(28px, 3.4vw, 42px);
+    line-height: 1.12;
+    font-weight: 700;
+    margin: 0 0 18px;
+    letter-spacing: -.01em;
+  }
+
+  .login-brand h1 span {
+    color: #3fd0ff;
+  }
+
+  .login-brand .lead {
+    color: #a9c1dc;
+    font-size: 15.5px;
+    line-height: 1.6;
+    margin: 0 0 40px;
+    max-width: 380px;
+  }
+
+  .brand-stats {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .brand-stats .num {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .brand-stats .lbl {
+    font-size: 12.5px;
+    color: #7f9cbf;
+    margin-top: 2px;
+  }
+
+  .flight-path {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: .8;
+  }
+
+  /* ---------- Login panel ---------- */
+  .login-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    background: #0d1c33;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 380px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 36px 32px 30px;
+    backdrop-filter: blur(6px);
+  }
+
+  .login-card-head .kicker {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #3fd0ff;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .login-card-head h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 6px;
+  }
+
+  .login-card-head p {
+    color: #93accc;
+    font-size: 14px;
+    margin: 0 0 26px;
+  }
+
+  .form-row {
+    margin-bottom: 18px;
+  }
+
+  .form-row label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #cfe0f2;
+    margin-bottom: 7px;
+  }
+
+  .form-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: #fff;
+    font-size: 14.5px;
+    outline: none;
+    transition: border-color .15s ease, background .15s ease;
+  }
+
+  .form-input::placeholder {
+    color: #5f7a99;
+  }
+
+  .form-input:focus {
+    border-color: #3fd0ff;
+    background: rgba(63, 208, 255, 0.06);
+  }
+
+  .password-field {
+    position: relative;
+  }
+
+  .password-field .form-input {
+    padding-right: 44px;
+  }
+
+  .toggle-pw {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #7f9cbf;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+  }
+
+  .toggle-pw:hover {
+    color: #3fd0ff;
+  }
+
+  .field-error {
+    display: block;
+    color: #ff8080;
+    font-size: 12.5px;
+    margin-top: 6px;
+  }
+
+  .field-error.general:empty {
+    display: none;
+    margin: 0;
+  }
+
+  .field-error.general ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 13px 20px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #3fd0ff, #2196d6);
+    color: #06283f;
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 8px 22px rgba(63, 208, 255, .28);
+    transform: translateY(-1px);
+  }
+
+  .btn-block {
+    width: 100%;
+    margin-top: 6px;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 22px;
+    font-size: 13.5px;
+    color: #7f9cbf;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    color: #3fd0ff;
+  }
+
+  /* ---------- Responsive ---------- */
+  @@media (max-width: 1024px) {
+    .login-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .login-brand {
+      padding: 48px 32px;
+      min-height: 320px;
+    }
+
+    .brand-stats {
+      gap: 24px;
+    }
+  }
+
+  @@media (max-width: 640px) {
+    .login-brand {
+      padding: 40px 24px 32px;
+      min-height: 260px;
+    }
+
+    .login-brand h1 {
+      font-size: 26px;
+    }
+
+    .login-brand .lead {
+      font-size: 14px;
+      margin-bottom: 26px;
+    }
+
+    .brand-stats {
+      gap: 20px;
+    }
+
+    .brand-stats .num {
+      font-size: 18px;
+    }
+
+    .login-panel {
+      padding: 28px 18px 48px;
+    }
+
+    .login-card {
+      padding: 28px 22px 24px;
+      border-radius: 14px;
+    }
+  }
+
+  @@media (prefers-reduced-motion: reduce) {
+    .drone-dot animateMotion {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var toggle = document.getElementById('togglePw');
+    var input = document.getElementById('passwordInput');
+    if (!toggle || !input) return;
+    toggle.addEventListener('click', function () {
+      var isHidden = input.type === 'password';
+      input.type = isHidden ? 'text' : 'password';
+      toggle.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+    });
+  })();
+</script>

@@ -1,0 +1,47 @@
+﻿@model List<DroWashWebsite.Models.AdditionalService>
+@{
+    ViewData["Title"] = "Additional Services";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Additional Services</h1>
+        <p>These show as small tag chips under the main services grid.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">+ Add Item</a>
+</div>
+
+<div class="admin-table-wrap">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Order</th>
+                <th>Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="3" style="text-align:center; color:#5b6577;">No items yet. Click "Add Item" to create your first one.</td></tr>
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-label="Order">@item.SortOrder</td>
+                    <td data-label="Name">@item.Name</td>
+                    <td data-label="Actions">
+                        <div class="row-actions">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline btn-sm">Edit</a>
+                            <form asp-action="Delete" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Delete \'@item.Name\'? This cannot be undone.');" style="display:inline;">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,47 @@
+﻿@model List<DroWashWebsite.Models.HeroSlide>
+@{
+    ViewData["Title"] = "Hero Slideshow";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Hero Slideshow</h1>
+        <p>These images rotate in the homepage hero banner.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">+ Add Slide</a>
+</div>
+
+<div class="admin-table-wrap">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Preview</th>
+                <th>Order</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="3" style="text-align:center; color:#5b6577;">No slides yet. Click "Add Slide" to upload your first image.</td></tr>
+            }
+            @foreach (var slide in Model)
+            {
+                <tr>
+                    <td data-label="Preview"><img src="@Url.Content(slide.ImageUrl)" class="thumb" alt="Slide"></td>
+                    <td data-label="Order">@slide.SortOrder</td>
+                    <td data-label="Actions">
+                        <div class="row-actions">
+                            <a asp-action="Edit" asp-route-id="@slide.Id" class="btn btn-outline btn-sm">Edit</a>
+                            <form asp-action="Delete" asp-route-id="@slide.Id" method="post" onsubmit="return confirm('Delete this slide? The image file will be permanently removed.');" style="display:inline;">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

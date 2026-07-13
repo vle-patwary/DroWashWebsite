@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Dashboard</h1>
+        <p>Welcome back, @User.Identity?.Name.</p>
+    </div>
+</div>
+
+<div class="admin-stats-grid">
+    <div class="admin-stat-card">
+        <div class="lbl">Services Listed</div>
+        <div class="val">@ViewData["ServicesCount"]</div>
+        <a asp-controller="AdminServices" asp-action="Index">Manage services &rarr;</a>
+    </div>
+    <div class="admin-stat-card">
+        <div class="lbl">Hero Slideshow Images</div>
+        <div class="val">@ViewData["HeroSlidesCount"]</div>
+        <a asp-controller="AdminHeroSlides" asp-action="Index">Manage slideshow &rarr;</a>
+    </div>
+    <div class="admin-stat-card">
+        <div class="lbl">Total Quote Requests</div>
+        <div class="val">@ViewData["QuotesCount"]</div>
+        <a asp-controller="AdminQuotes" asp-action="Index">View all &rarr;</a>
+    </div>
+    <div class="admin-stat-card">
+        <div class="lbl">Unhandled Quotes</div>
+        <div class="val accent">@ViewData["UnhandledQuotesCount"]</div>
+        <a asp-controller="AdminQuotes" asp-action="Index">Review now &rarr;</a>
+    </div>
+</div>
+
+<div class="admin-panel">
+    <h3 style="font-family:var(--font-display); font-size:17px; margin-bottom:10px; color:var(--navy-deep);">Getting started</h3>
+    <p style="font-size:14px; color:#5b6577; line-height:1.6;">
+        Use the sidebar to manage every section of your homepage — services, benefits, process steps, hero slideshow images, before/after photos, and incoming quote requests. Changes here update the live site immediately.
+    </p>
+</div>

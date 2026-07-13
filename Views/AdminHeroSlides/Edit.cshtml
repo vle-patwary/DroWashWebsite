@@ -1,0 +1,38 @@
+﻿@model DroWashWebsite.Models.HeroSlide
+@{
+    ViewData["Title"] = "Edit Slide";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Edit Hero Slide</h1>
+        <p>Uploading a new image will permanently delete the current one.</p>
+    </div>
+</div>
+
+<div class="admin-panel">
+    <div class="image-preview-box">
+        <img src="@Url.Content(Model.ImageUrl)" alt="Current slide">
+    </div>
+
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data" class="admin-form">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="admin-alert admin-alert-error" style="@(ViewData.ModelState.IsValid ? "display:none;" : "")"></div>
+
+        <div class="form-row">
+            <label for="imageFile">Replace image (optional — leave empty to keep current image)</label>
+            <input type="file" id="imageFile" name="imageFile" accept=".jpg,.jpeg,.png,.webp" />
+        </div>
+
+        <div class="form-row">
+            <label for="sortOrder">Sort order (lower numbers show first)</label>
+            <input type="number" id="sortOrder" name="sortOrder" value="@Model.SortOrder" />
+        </div>
+
+        <div class="admin-form-actions">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a asp-action="Index" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,49 @@
+﻿@model List<DroWashWebsite.Models.WhyCard>
+@{
+    ViewData["Title"] = "Why Cards";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Why DroWash Cards</h1>
+        <p>These show as cards in the "Why DroWash Cleaners" grid on your homepage.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">+ Add Card</a>
+</div>
+
+<div class="admin-table-wrap">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Order</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="4" style="text-align:center; color:#5b6577;">No cards yet. Click "Add Card" to create your first one.</td></tr>
+            }
+            @foreach (var card in Model)
+            {
+                <tr>
+                    <td data-label="Order">@card.SortOrder</td>
+                    <td data-label="Title"><strong>@card.Title</strong></td>
+                    <td data-label="Description">@(card.Description.Length > 80 ? card.Description.Substring(0, 80) + "…" : card.Description)</td>
+                    <td data-label="Actions">
+                        <div class="row-actions">
+                            <a asp-action="Edit" asp-route-id="@card.Id" class="btn btn-outline btn-sm">Edit</a>
+                            <form asp-action="Delete" asp-route-id="@card.Id" method="post" onsubmit="return confirm('Delete \'@card.Title\'? This cannot be undone.');" style="display:inline;">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

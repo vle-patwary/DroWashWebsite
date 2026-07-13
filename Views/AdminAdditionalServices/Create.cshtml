@@ -1,0 +1,36 @@
+﻿@model DroWashWebsite.Models.AdditionalService
+@{
+    ViewData["Title"] = "Add Additional Service";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Add Additional Service</h1>
+        <p>This will appear as a new tag chip on your homepage.</p>
+    </div>
+</div>
+
+<div class="admin-panel">
+    <form asp-action="Create" method="post" class="admin-form">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="admin-alert admin-alert-error" style="@(ViewData.ModelState.IsValid ? "display:none;" : "")"></div>
+
+        <div class="form-row">
+            <label asp-for="Name">Name</label>
+            <input asp-for="Name" placeholder="Building Soft Washing" />
+            <span asp-validation-for="Name" class="field-error"></span>
+        </div>
+
+        <div class="form-row">
+            <label asp-for="SortOrder">Sort order (lower numbers show first)</label>
+            <input asp-for="SortOrder" type="number" placeholder="1" />
+            <span asp-validation-for="SortOrder" class="field-error"></span>
+        </div>
+
+        <div class="admin-form-actions">
+            <button type="submit" class="btn btn-primary">Save Item</button>
+            <a asp-action="Index" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+</div>

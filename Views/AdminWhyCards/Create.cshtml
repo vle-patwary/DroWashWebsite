@@ -1,0 +1,48 @@
+﻿@model DroWashWebsite.Models.WhyCard
+@{
+    ViewData["Title"] = "Add Why-Card";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Add Why-Card</h1>
+        <p>This will appear as a new card in the "Why DroWash Cleaners" section.</p>
+    </div>
+</div>
+
+<div class="admin-panel">
+    <form asp-action="Create" method="post" class="admin-form">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="admin-alert admin-alert-error" style="@(ViewData.ModelState.IsValid ? "display:none;" : "")"></div>
+
+        <div class="form-row">
+            <label asp-for="Title">Title</label>
+            <input asp-for="Title" placeholder="Efficient and fast" />
+            <span asp-validation-for="Title" class="field-error"></span>
+        </div>
+
+        <div class="form-row">
+            <label asp-for="Description">Description</label>
+            <textarea asp-for="Description" rows="3"></textarea>
+            <span asp-validation-for="Description" class="field-error"></span>
+        </div>
+
+        <div class="form-row">
+            <label asp-for="IconSvgPath">Icon SVG path data</label>
+            <textarea asp-for="IconSvgPath" rows="2" placeholder="&lt;path d=&quot;M13 2L4 14h7l-1 8 9-12h-7l1-8z&quot;/&gt;"></textarea>
+            <span asp-validation-for="IconSvgPath" class="field-error"></span>
+        </div>
+
+        <div class="form-row">
+            <label asp-for="SortOrder">Sort order (lower numbers show first)</label>
+            <input asp-for="SortOrder" type="number" placeholder="1" />
+            <span asp-validation-for="SortOrder" class="field-error"></span>
+        </div>
+
+        <div class="admin-form-actions">
+            <button type="submit" class="btn btn-primary">Save Card</button>
+            <a asp-action="Index" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+</div>

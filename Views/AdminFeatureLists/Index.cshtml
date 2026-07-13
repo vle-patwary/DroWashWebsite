@@ -1,0 +1,57 @@
+﻿@model List<DroWashWebsite.Models.FeatureListItem>
+@{
+    ViewData["Title"] = "Feature Lists";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Feature Lists</h1>
+        <p>Powers the "Why Deionized Water" and "Streak-Free Cleaning" feature lists on your homepage.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary">+ Add Feature</a>
+</div>
+
+<div class="admin-table-wrap">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Order</th>
+                <th>Number</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="6" style="text-align:center; color:#5b6577;">No features yet. Click "Add Feature" to create your first one.</td></tr>
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-label="Category">
+                        <span class="badge @(item.Category == DroWashWebsite.Models.FeatureListCategory.Deionized ? "badge-done" : "badge-open")">
+                            @(item.Category == DroWashWebsite.Models.FeatureListCategory.Deionized ? "Deionized" : "Streak-Free")
+                        </span>
+                    </td>
+                    <td data-label="Order">@item.SortOrder</td>
+                    <td data-label="Number">@item.Number</td>
+                    <td data-label="Title"><strong>@item.Title</strong></td>
+                    <td data-label="Description">@(item.Description.Length > 60 ? item.Description.Substring(0, 60) + "…" : item.Description)</td>
+                    <td data-label="Actions">
+                        <div class="row-actions">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline btn-sm">Edit</a>
+                            <form asp-action="Delete" asp-route-id="@item.Id" method="post" onsubmit="return confirm('Delete \'@item.Title\'? This cannot be undone.');" style="display:inline;">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

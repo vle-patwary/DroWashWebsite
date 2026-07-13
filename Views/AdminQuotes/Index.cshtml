@@ -1,0 +1,57 @@
+﻿@model List<DroWashWebsite.Models.QuoteRequest>
+@{
+    ViewData["Title"] = "Quote Requests";
+    Layout = "_AdminLayout";
+    var filter = ViewBag.Filter as string;
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Quote Requests</h1>
+        <p>Submissions from the "Get A Quote" form on your homepage.</p>
+    </div>
+    <div class="row-actions">
+        <a asp-action="Index" class="btn @(filter == null ? "btn-primary" : "btn-outline") btn-sm">All</a>
+        <a asp-action="Index" asp-route-filter="unhandled" class="btn @(filter == "unhandled" ? "btn-primary" : "btn-outline") btn-sm">Unhandled Only</a>
+    </div>
+</div>
+
+<div class="admin-table-wrap">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>Received</th>
+                <th>Name</th>
+                <th>Email / Phone</th>
+                <th>Property</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="6" style="text-align:center; color:#5b6577;">No quote requests found.</td></tr>
+            }
+            @foreach (var quote in Model)
+            {
+                <tr>
+                    <td data-label="Received">@quote.SubmittedAtUtc.ToLocalTime().ToString("MMM d, yyyy h:mm tt")</td>
+                    <td data-label="Name"><strong>@quote.FullName</strong></td>
+                    <td data-label="Contact">@quote.Email<br>@quote.Phone</td>
+                    <td data-label="Property">@quote.PropertyAddress <br><span style="color:#5b6577; font-size:12.5px;">@quote.PropertyType</span></td>
+                    <td data-label="Status">
+                        <span class="badge @(quote.IsHandled ? "badge-done" : "badge-open")">
+                            @(quote.IsHandled ? "Handled" : "New")
+                        </span>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="row-actions">
+                            <a asp-action="Details" asp-route-id="@quote.Id" class="btn btn-outline btn-sm">View</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

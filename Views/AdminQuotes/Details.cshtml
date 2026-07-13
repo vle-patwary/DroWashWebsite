@@ -1,0 +1,48 @@
+﻿@model DroWashWebsite.Models.QuoteRequest
+@{
+    ViewData["Title"] = "Quote Request Details";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Quote Request from @Model.FullName</h1>
+        <p>Received @Model.SubmittedAtUtc.ToLocalTime().ToString("MMMM d, yyyy 'at' h:mm tt")</p>
+    </div>
+    <span class="badge @(Model.IsHandled ? "badge-done" : "badge-open")">
+        @(Model.IsHandled ? "Handled" : "New")
+    </span>
+</div>
+
+<div class="admin-panel">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;" class="admin-two-col">
+        <div>
+            <div class="form-row"><label>Full Name</label><div style="padding:12px 14px; background:var(--mist); border-radius:8px;">@Model.FullName</div></div>
+            <div class="form-row"><label>Email</label><div style="padding:12px 14px; background:var(--mist); border-radius:8px;"><a href="mailto:@Model.Email">@Model.Email</a></div></div>
+            <div class="form-row"><label>Phone</label><div style="padding:12px 14px; background:var(--mist); border-radius:8px;"><a href="tel:@Model.Phone">@Model.Phone</a></div></div>
+        </div>
+        <div>
+            <div class="form-row"><label>Property Address</label><div style="padding:12px 14px; background:var(--mist); border-radius:8px;">@Model.PropertyAddress</div></div>
+            <div class="form-row"><label>Property Type</label><div style="padding:12px 14px; background:var(--mist); border-radius:8px;">@Model.PropertyType</div></div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <label>Notes</label>
+        <div style="padding:12px 14px; background:var(--mist); border-radius:8px; min-height:60px; white-space:pre-wrap;">@(string.IsNullOrWhiteSpace(Model.Notes) ? "(no notes provided)" : Model.Notes)</div>
+    </div>
+
+    <div class="admin-form-actions">
+        <form asp-action="ToggleHandled" asp-route-id="@Model.Id" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-primary">
+                @(Model.IsHandled ? "Reopen Request" : "Mark As Handled")
+            </button>
+        </form>
+        <a asp-action="Index" class="btn btn-outline">Back to List</a>
+        <form asp-action="Delete" asp-route-id="@Model.Id" method="post" onsubmit="return confirm('Delete this quote request permanently?');">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+</div>

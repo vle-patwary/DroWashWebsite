@@ -1,0 +1,49 @@
+﻿@model DroWashWebsite.Models.ProcessStep
+@{
+    ViewData["Title"] = "Edit Process Step";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-page-head">
+    <div>
+        <h1>Edit Process Step</h1>
+        <p>Updating this will immediately replace the current content on your live site.</p>
+    </div>
+</div>
+
+<div class="admin-panel">
+    <form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="admin-form">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="admin-alert admin-alert-error" style="@(ViewData.ModelState.IsValid ? "display:none;" : "")"></div>
+
+        <div class="form-row">
+            <label asp-for="Number">Step number</label>
+            <input asp-for="Number" />
+            <span asp-validation-for="Number" class="field-error"></span>
+        </div>
+
+        <div class="form-row">
+            <label asp-for="Title">Title</label>
+            <input asp-for="Title" />
+            <span asp-validation-for="Title" class="field-error"></span>
+        </div>
+
+        <div class="form-row">
+            <label asp-for="Description">Description</label>
+            <textarea asp-for="Description" rows="3"></textarea>
+            <span asp-validation-for="Description" class="field-error"></span>
+        </div>
+
+        <div class="form-row">
+            <label asp-for="SortOrder">Sort order (lower numbers show first)</label>
+            <input asp-for="SortOrder" type="number" />
+            <span asp-validation-for="SortOrder" class="field-error"></span>
+        </div>
+
+        <div class="admin-form-actions">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a asp-action="Index" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+</div>
