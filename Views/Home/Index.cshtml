@@ -172,18 +172,55 @@
           }
         </ul>
       </div>
-      <div class="col-visual">
-        <div class="visual-card">
-          <div>
-            <div class="metric"><div class="big">0 ppm</div><div class="lbl">Total Dissolved Solids</div></div>
-          </div>
-          <div style="display:flex; gap:28px; margin-top:20px; flex-wrap:wrap;">
-            <div class="metric"><div class="big" style="font-size:22px;">18 M&Omega;</div><div class="lbl">Resistivity</div></div>
-            <div class="metric"><div class="big" style="font-size:22px;">100%</div><div class="lbl">Streak-Free</div></div>
-            <div class="metric"><div class="big" style="font-size:22px;">50+</div><div class="lbl">Stories Serviced</div></div>
-          </div>
-        </div>
-      </div>
+            <div class="col-visual">
+                <div class="dw-card dw-observe" id="dwCard1">
+                    <div class="dw-ripple"></div>
+                    <div class="dw-ripple"></div>
+                    <div class="dw-ripple"></div>
+
+                    <div class="dw-gauge-wrap">
+                        <div class="dw-gauge">
+                            <svg width="100%" height="100%" viewBox="0 0 132 132">
+                                <defs>
+                                    <linearGradient id="dwGaugeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#2e8fe6" />
+                                        <stop offset="100%" stop-color="#5fb4ff" />
+                                    </linearGradient>
+                                </defs>
+                                <circle class="dw-gauge-track" cx="66" cy="66" r="54" fill="none" stroke-width="8" />
+                                <circle class="dw-gauge-fill" id="dwGaugeFill" cx="66" cy="66" r="54" fill="none" stroke-width="8" />
+                            </svg>
+                            <div class="dw-gauge-center">
+                                <div class="dw-gauge-num" id="dwPpmNum">100</div>
+                                <div class="dw-gauge-unit">PPM</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="dw-gauge-label">Live Reading</div>
+                            <div class="dw-gauge-title">Total Dissolved Solids</div>
+                            <div class="dw-gauge-sub">Purified in real time, stage by stage, to zero.</div>
+                        </div>
+                    </div>
+
+                    <div class="dw-mini-stats">
+                        <div>
+                            <div class="dw-num" data-target="18">0</div>
+                            <div class="dw-lab">Resistivity (MΩ)</div>
+                            <div class="dw-bar"><i data-width="90"></i></div>
+                        </div>
+                        <div>
+                            <div class="dw-num" data-target="100">0</div>
+                            <div class="dw-lab">Streak-Free</div>
+                            <div class="dw-bar"><i data-width="100"></i></div>
+                        </div>
+                        <div>
+                            <div class="dw-num" data-target="50" data-suffix="+">0</div>
+                            <div class="dw-lab">Stories Serviced</div>
+                            <div class="dw-bar"><i data-width="75"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
   </div>
 </section>
@@ -191,15 +228,30 @@
 <section class="alt">
   <div class="wrap">
     <div class="feature-row rev">
-      <div class="col-visual">
-        <div class="visual-card" style="background:linear-gradient(160deg,#123258,#0d1c33);">
-          <div class="metric"><div class="big">3x</div><div class="lbl">Faster Than Rope Access</div></div>
-          <div style="display:flex; gap:28px; margin-top:20px;">
-            <div class="metric"><div class="big" style="font-size:22px;">&darr; Cost</div><div class="lbl">No Rigging Crew</div></div>
-            <div class="metric"><div class="big" style="font-size:22px;">&uarr; Value</div><div class="lbl">Property Upkeep</div></div>
-          </div>
-        </div>
-      </div>
+            <div class="col-visual">
+                <div class="dw-card dw-observe" id="dwCard2">
+                    <div>
+                        <div class="dw-speed-num"><span data-target="3" data-suffix="x">0x</span></div>
+                        <div class="dw-gauge-label" style="margin-top:8px;">Faster Than Rope Access</div>
+
+                        <div class="dw-compare">
+                            <div class="dw-compare-row">
+                                <div class="dw-rlabel"><span>Rope access</span><span>100%</span></div>
+                                <div class="dw-track"><div class="dw-fill rope" data-width="100"></div></div>
+                            </div>
+                            <div class="dw-compare-row">
+                                <div class="dw-rlabel"><span>Water-fed drone</span><span>33%</span></div>
+                                <div class="dw-track"><div class="dw-fill pole" data-width="33"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dw-end-stats">
+                        <div><div class="dw-num down">&darr; Cost</div><div class="dw-lab">No Rigging Crew</div></div>
+                        <div><div class="dw-num up">&uarr; Value</div><div class="dw-lab">Property Upkeep</div></div>
+                    </div>
+                </div>
+            </div>
       <div class="col-text">
         <span class="kicker">Benefits Of Streak-Free Cleaning</span>
         <h2 class="feature-heading">A cleaner finish protects the asset, not just the view.</h2>
@@ -243,7 +295,7 @@
       <span class="kicker">Get A Quote</span>
       <h2>Ready to see your property clean from the air?</h2>
       <p>Send us your building details and we'll come back with a fixed quote and a proposed flight date.</p>
-      <a href="tel:+18005551234" class="btn btn-ghost" style="border-color:rgba(255,255,255,.25); margin-top:8px;">Or call </a>
+            <a href="tel:+1 289-780-9647" class="btn btn-ghost" style="border-color:rgba(255,255,255,.25); margin-top:8px;">Or call (+1 289-780-9647) </a>
     </div>
 
     <div class="quote-card">
@@ -310,3 +362,71 @@
     </div>
   </div>
 </section>
+@section Scripts {
+    <script>
+        (function() {
+            function animateDwCount(el) {
+                const target = parseFloat(el.dataset.target);
+                const suffix = el.dataset.suffix || '';
+                const dur = 1400;
+                const start = performance.now();
+                function step(now) {
+                    const p = Math.min((now - start) / dur, 1);
+                    const eased = 1 - Math.pow(1 - p, 3);
+                    el.textContent = Math.round(target * eased) + suffix;
+                    if (p < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            }
+            const featureItems = document.querySelectorAll('.feature-list li');
+  const featureObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('dw-in-view'), (i * 90) % 400);
+        featureObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: .2 });
+  featureItems.forEach(el => featureObserver.observe(el));
+            document.querySelectorAll('.dw-observe').forEach(el => {
+                new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('dw-in-view');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: .2 }).observe(el);
+            });
+
+            const dwCard1 = document.getElementById('dwCard1');
+            if (dwCard1) {
+                new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            document.getElementById('dwGaugeFill').style.strokeDashoffset = '0';
+                            document.getElementById('dwPpmNum').textContent = '0';
+                            dwCard1.querySelectorAll('.dw-mini-stats .dw-num').forEach(animateDwCount);
+                            dwCard1.querySelectorAll('.dw-bar i').forEach(b => b.style.width = b.dataset.width + '%');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: .35 }).observe(dwCard1);
+            }
+
+            const dwCard2 = document.getElementById('dwCard2');
+            if (dwCard2) {
+                new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const speedEl = dwCard2.querySelector('.dw-speed-num span');
+                            if (speedEl) animateDwCount(speedEl);
+                            dwCard2.querySelectorAll('.dw-fill').forEach(b => b.style.width = b.dataset.width + '%');
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: .35 }).observe(dwCard2);
+            }
+        })();
+    </script>
+}
